@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+
+<html>
+<title>Box Drop Delivering</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<style>
+  body,h1 {font-family: "Raleway", sans-serif}
+  body,h1 {
+    color: black;
+    text-align: center;
+  }
+  body, html {
+    height: 100%;
+  }
+  .bgimg {
+    background-color:white;
+    min-height: 100%;
+    background-position: center;
+    background-size: cover;
+
+  }
+  #test2{
+
+    color: black;
+  }
+
+  #test{
+    position: absolute;
+    right: 0px;
+    color: black;
+    padding-right: 16px;
+    padding-top: 5px;
+  }
+
+
+  .display-top-right{
+    position:absolute;
+    right:0;
+    top:0
+  }
+
+
+
+  .sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+
+  }
+
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+
+  }
+
+  .sidenav a:hover {
+    color: #f1f1f1;
+
+  }
+
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+
+  }
+
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
+
+  .square{
+    animation-name: slide;
+    animation-duration: 4s;
+    animation-delay: 0s;
+    animation-iteration-count: one;
+    animation-timing-function: linear;
+    animation-direction: alternate;
+    height: 3px;
+    width: 100%;
+    background-color: #0ecf41;
+  }
+  @keyframes slide {
+  0% {
+    height: 3px;
+    width: 75%;
+    background-color: #555;
+  }
+
+  100%  {
+    height: 3px;
+    width: 100%;
+    background-color: #0ecf41;
+  }
+  }
+
+  .box{
+    position: absolute;
+    top: 37%;
+    right: 12%;
+    z-index: 9999;
+    height: 22%;
+    width: 10%;
+    animation-name: dropping;
+    animation-duration: 1s;
+    animation-delay: 0s;
+    animation-iteration-count: one;
+    animation-timing-function: linear;
+    animation-direction: alternate;
+
+  }
+  @keyframes dropping {
+  0% {
+    position: absolute;
+    top: -300px;
+    right: 12%;
+    z-index: 9999;
+    height: 22%;
+    width: 10%;
+  }
+
+  100%  {
+    position: absolute;
+    top: 37%;
+    right: 12%;
+    z-index: 9999;
+    height: 22%;
+    width: 10%;
+  }
+  }
+</style>
+
+  <body>
+    <div class="square"></div>
+
+    <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+      <div id=test2 class="w3-display-topleft w3-padding-large w3-xlarge">
+        Box Drop
+    </div>
+
+
+    <div class="w3-display-middle">
+      <h1 class="w3-jumbo w3-animate-top">AUTHENTICATED <img src="https://static.thenounproject.com/png/6156-200.png" alt="black check" align="middle" style="float:right;width:100px;height:100px;"></h1>
+      <hr class="w3-border-grey" style="margin:auto;width:40%">
+      <p class="w3-large w3-center"><!--<img src="https://i.pinimg.com/originals/3f/2c/97/3f2c979b214d06e9caab8ba8326864f3.gif" alt="balck check" align="middle" style="width:100px;height:100px;"-->></p>
+    </div>
+
+
+    <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="addpage.html">Request</a>
+      <a href="recScreen.html">Receive</a>
+      <a href="awaitingReq.html">Drive</a>
+      <a href="about.html">About</a>
+    </div>
+
+    <span id = test style="font-size:30px;cursor:pointer;text-align:right;" onclick="openNav()">&#9776;</span>
+
+    <script>
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+    }
+
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+    }
+    </script>
+
+    <img class = 'box' src = "https://miro.medium.com/max/1000/1*WljD7gLyX2gr_60o501Z1A.png"> </img>
+
+
+
+
+
+
+
+  </body>
+</html>

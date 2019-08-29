@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+
+<html>
+<title>Box Drop Delivering</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="js/variables.js"></script>
+<style>
+  body,h1 {font-family: "Raleway", sans-serif}
+  body,h1 {
+    color: black;
+    text-align: center;
+  }
+  body, html {
+    height: 100%;
+  }
+  .bgimg {
+    background-color:white;
+    min-height: 100%;
+    background-position: center;
+    background-size: cover;
+
+  }
+  #test2{
+
+    color: black;
+  }
+
+  #test{
+    position: absolute;
+    right: 0px;
+    color: black;
+    padding-right: 16px;
+    padding-top: 5px;
+  }
+
+
+  .display-top-right{
+    position:absolute;
+    right:0;
+    top:0
+  }
+
+
+
+  .sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+
+  }
+
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+
+  }
+
+  .sidenav a:hover {
+    color: #f1f1f1;
+
+  }
+
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+
+  }
+
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
+
+p{color:black;}
+
+form{
+  padding-top: 7%;
+  padding-right: 20%;
+  padding-left: 20%
+}
+
+
+body {
+  background: url('https://www.readytechgo.com.au/wp-content/uploads/2018/11/Using-Google-Maps-to-Get-Around.png') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+
+}
+
+#nosee{
+  opacity: 0.8;
+}
+#submitbtn{
+  background-color: white;
+}
+
+
+</style>
+
+  <body>
+    <div class="bg">
+        <div id= "nosee" class="jumbotron jumbotron-fluid">
+          <div  id = "see" class="container">
+            <h1 class="display-4">ready, set, <strong>ship.</strong></h1>
+            <p c  lass="lead">Box Drop is ready to ship! Just enter your to and from adresses.</p>
+          </div>
+        </div>
+
+    <div class=" w3-animate-opacity w3-text-white">
+      <div id=test2 class="w3-display-topleft w3-padding-large w3-xlarge">
+        Box Drop
+    </div>
+
+    <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="addpage.html">Request</a>
+      <a href="recScreen.html">Receive</a>
+      <a href="awaitingReq.html">Drive</a>
+      <a href="about.html">About</a>
+    </div>
+
+    <span id = test style="font-size:30px;cursor:pointer;text-align:right; position: absolute; top: 0;" onclick="openNav()">&#9776;</span>
+
+    <script>
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+    }
+
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+    }
+    </script>
+
+
+
+
+    <form id="directions-form" onsubmit="return initialize_map()">
+      <div class="form-group">
+        <input id='from' class="form-control" aria-describedby="emailHelp" placeholder="Where From?">
+      </div>
+      <div class="form-group">
+        <input id='to' class="form-control" aria-describedby="emailHelp" placeholder="Where To?">
+      </div>
+      <button id="submitbtn" type="submit" class="btn btn-light" >Submit</button>
+    </form>
+</div>
+
+
+
+
+  </body>
+</html>

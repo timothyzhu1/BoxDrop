@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+
+<html>
+<title>Box Drop Delivering</title>
+<meta charset="UTF-8">
+<script src="js/main.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css?family=Oxygen:300&display=swap" rel="stylesheet">
+
+<!-- links to map stuff -->
+<div id="map" ></div>
+<script src="https://js.api.here.com/v3/3.0/mapsjs-core.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://js.api.here.com/v3/3.0/mapsjs-service.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://js.api.here.com/v3/3.0/mapsjs-mapevents.js" type="text/javascript" charset="utf-8"></script>
+
+
+
+<script src="js/variables.js"></script>
+
+
+<style>
+  body,h1 {font-family: "Raleway", sans-serif}
+  body,h1 {
+    color: black;
+    text-align: center;
+  }
+  body, html {
+    height: 100%;
+    /* background: url('https://www.readytechgo.com.au/wp-content/uploads/2018/11/Using-Google-Maps-to-Get-Around.png'); */
+  }
+  .bgimg {
+    background-color:white;
+    min-height: 100%;
+    background-position: center;
+    background-size: cover;
+
+  }
+  #test2{
+
+    color: black;
+  }
+
+  #test{
+    position: absolute;
+    right: 0px;
+    top: 0;
+    color: black;
+    padding-right: 16px;
+    padding-top: 5px;
+  }
+
+
+  .display-top-right{
+    position:absolute;
+    right:0;
+    top:0
+  }
+
+
+
+  .sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    z-index: 105;
+
+
+  }
+
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+    z-index: 200;
+
+  }
+
+  .sidenav a:hover {
+    color: #f1f1f1;
+    z-index: 200;
+
+  }
+
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+
+  }
+
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
+
+  .square{
+    position: absolute;
+    top: 0;
+    animation-name: slide;
+    animation-duration: 4s;
+    animation-delay: 0s;
+    animation-iteration-count: one;
+    animation-timing-function: linear;
+    animation-direction: alternate;
+    height: 3px;
+    width: 25%;
+    background-color: #555;
+    z-index: 100;
+  }
+  @keyframes slide {
+  0% {
+    height: 3px;
+    width: 0%;
+    background-color: #555;
+  }
+
+  100%  {
+    height: 3px;
+    width: 25%;
+    background-color: #555;
+  }
+  }
+
+.square2{
+  position: absolute;
+  top: 0px;
+  left: 0;
+  height: 10%;
+  width:100%;
+  background-color: white;
+  opacity:1;
+  z-index: 0;
+}
+.square3{
+  position: absolute;
+
+  left: 0;
+  top: 90%;
+  height: 10%;
+  width:100%;
+  background-color: white;
+  opacity:1;
+}
+
+#confirm{
+  position: absolute;
+  top: 91.5%;
+  right: 5%;
+  right-padding: 20px;
+  z-index:101;
+}
+
+#ETA{
+  position: fixed;
+  top: 90%;
+  left: 5%;
+  color: black;
+  font-family: calibri;
+  font-size: 32px;
+  font-weight: lighter;
+
+}
+#price{
+  position: fixed;
+  top: 90%;
+  left: 50%;
+  color: #2FA820;
+  font-family: oxygen;
+  font-size: 32px;
+  font-weight: bold;
+
+}
+
+#total{
+  position: fixed;
+  top: 90%;
+  right: 50%;
+  color: black;
+  font-family: oxygen;
+  font-size: 32px;
+}
+
+#map{
+  width:100%;
+  height: 90%;
+  z-index: 1;
+}
+
+</style>
+
+  <body>
+<div class="square"></div>
+  <div class="square2"></div>
+  <div class="square3"></div>
+
+    <div class="w3-animate-opacity w3-text-white">
+      <div id=test2 class="w3-display-topleft w3-padding-large w3-xlarge">
+        Box Drop
+    </div>
+
+
+    <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="addpage.html">Request</a>
+      <a href="recScreen.html">Receive</a>
+      <a href="awaitingReq.html">Drive</a>
+      <a href="about.html">About</a>
+    </div>
+
+    <span id = test style="font-size:30px;cursor:pointer;text-align:right;" onclick="openNav()">&#9776;</span>
+
+    <script>
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+    }
+
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+    }
+    </script>
+
+    <script>
+    //functions for the map creation
+    async function directions(a, b) {
+          console.log(a, b)
+          const here = new HereMap("I0nhCBoVh22CyHDhca1a", "SNVU5IcRP7CdpCKbJ0AvoQ", document.getElementById("map"));
+          var from = await here.geocode(a);
+          var to = await here.geocode(b);
+          var test = here.dropMarker(from.Latitude, from.Longitude);
+          var test1 = here.dropMarker(to.Latitude, to.Longitude);
+          here.drawRoute(from, to, function() {
+            document.getElementById('ETA').innerHTML = here.ave_time;
+            document.getElementById('price').innerHTML = here.price;
+            // i will have to mul 0.9 later
+            console.log(typeof here.price)
+          });
+
+      }
+
+      const query = new URLSearchParams(window.location.search)
+      directions(query.get('from'), query.get('to'));
+
+
+    </script>
+
+  <div id="directions-form">
+
+    <button  id ="confirm" class="btn btn-secondary btn-dark btn-lg" >Accept Delivery Request</button>
+
+    <p id = "ETA"> </p>
+    <p id="total">Total Earning: &nbsp </p>
+    <p id = "price"> </p>
+</div>
+  </body>
+
+
+  <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.21.7.js"></script>
+  <script>
+
+  //generates random code
+  function generate_code(){
+    var temp = Math.floor(Math.random() * 1000);
+    if (Math.floor(temp/100)==0){
+      return temp*10;
+    }
+    return temp;
+  }
+  var temp = generate_code();
+  console.log(temp);
+
+
+  //pubnub send to recScreen.html
+  const pubnub = new PubNub({
+      publishKey : 'pub-c-27519ead-c80f-4518-8fe0-e7c9ef7b6176',
+      subscribeKey : 'sub-c-ce8b5cf8-a60a-11e9-9950-eaa8f74ddcbd'
+  });
+  const button = document.getElementById('confirm');
+  button.addEventListener('click', () => {
+    console.log('in click', temp);
+      pubnub.publish({
+          channel : 'driver>receiver',
+          message: {
+              code: temp
+
+          }
+      }, function(status, response) {
+          console.log(status, response);
+          initialize_map2();
+      });
+      console.log('after pubnub')
+
+
+  });
+
+  </script>
+
+</html>

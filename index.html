@@ -1,0 +1,34 @@
+<html>
+    <head>
+    </head>
+    <body>
+
+    	<input type="textbox" id="from">
+    	<input type="textbox" id="to">
+    	<button onclick="directions()">Press</button>
+    	
+        <div id="map" style="width: 400px; height: 400px"></div>
+        <script src="https://js.api.here.com/v3/3.0/mapsjs-core.js" type="text/javascript" charset="utf-8"></script>
+        <script src="https://js.api.here.com/v3/3.0/mapsjs-service.js" type="text/javascript" charset="utf-8"></script>
+        <script src="https://js.api.here.com/v3/3.0/mapsjs-mapevents.js" type="text/javascript" charset="utf-8"></script>
+        <script src="main.js" type="text/javascript" charset="utf-8"></script>
+        <script>
+
+            async function directions() {
+            	
+                const here = new HereMap("I0nhCBoVh22CyHDhca1a", "SNVU5IcRP7CdpCKbJ0AvoQ", document.getElementById("map"));
+                const from = await here.geocode(document.getElementById("from").value);
+                const to = await here.geocode(document.getElementById("to").value);
+                here.dropMarker(from.Latitude, from.Longitude);
+                here.dropMarker(to.Latitude, to.Longitude);
+                here.drawRoute(from, to);
+                console.log(success.response.route[0].summary.distance);
+            }
+
+       
+            
+            
+           
+        </script>
+    </body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+
+<html>
+<title>Box Drop Delivering</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<div id="map" style="poisition:absolute; width:100%; height:100%;z-index:2; top:0px;"></div>
+<script src="https://js.api.here.com/v3/3.0/mapsjs-core.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://js.api.here.com/v3/3.0/mapsjs-service.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://js.api.here.com/v3/3.0/mapsjs-mapevents.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/main.js"></script>
+
+<style>
+  body,h1 {font-family: "Raleway", sans-serif}
+  body,h1 {
+    color: black;
+    text-align: center;
+  }
+  body, html {
+    height: 100%;
+    overflow: hidden;
+  }
+  .bgimg {
+    background-color:white;
+    min-height: 100%;
+    background-position: center;
+    background-size: cover;
+
+  }
+  #test2{
+
+    color: black;
+  }
+
+  #test{
+    position: absolute;
+    top:0;
+    right: 0px;
+    color: black;
+    padding-right: 16px;
+    padding-top: 5px;
+    z-index:3;
+  }
+
+
+  .display-top-right{
+    position:absolute;
+    right:0;
+    top:0
+  }
+
+
+
+  .sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+
+  }
+
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+
+  }
+
+  .sidenav a:hover {
+    color: #f1f1f1;
+
+  }
+
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+
+  }
+
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
+
+  .square{
+    animation-name: slide;
+    animation-duration: 4s;
+    animation-delay: 0s;
+    animation-iteration-count: one;
+    animation-timing-function: linear;
+    animation-direction: alternate;
+    height: 3px;
+    width: 50%;
+    background-color: #555;
+  }
+  @keyframes slide {
+  0% {
+    height: 3px;
+    width: 25%;
+    background-color: #555;
+  }
+
+  100%  {
+    height: 3px;
+    width: 50%;
+    background-color: #555;
+  }
+  }
+
+#tbl{
+  position: fixed;
+  top:30%;
+
+
+}
+#tbtext{
+  font-size:24px;
+}
+#miles{
+  font-size:24px;
+  font-family:calibri;
+}
+#confirm{
+  position:absolute;
+  bottom: 8px;
+  background-color: black;
+  color:white;
+}
+
+#boxpic{
+  position:  fixed;
+  width: 100px;
+  height: 100px;
+  top:60%;
+  left:46.5%;
+}
+</style>
+
+  <body>
+    <div class="square"></div>
+
+    <div class="w3-animate-opacity w3-text-white">
+      <div id=test2 class="w3-display-topleft w3-padding-large w3-xlarge">
+        Box Drop
+    </div>
+
+
+    <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="addpage.html">Request</a>
+      <a href="recScreen.html">Receive</a>
+      <a href="awaitingReq.html">Drive</a>
+      <a href="about.html">About</a>
+    </div>
+
+    <span id = test style="font-size:30px;cursor:pointer;text-align:right;" onclick="openNav()">&#9776;</span>
+
+    <script>
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+    }
+
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+    }
+    </script>
+
+<!-- make sure to change screen -->
+    <a href="codeInput.html"><button id="confirm" type="button"  class="btn btn-secondary btn-lg btn-block">Input Confirmation Code</button></a>
+
+
+  </body>
+  <!-- links to map stuff -->
+
+
+<script>
+async function directions(a, b) {
+      console.log(a, b)
+      const here = new HereMap("I0nhCBoVh22CyHDhca1a", "SNVU5IcRP7CdpCKbJ0AvoQ", document.getElementById("map"));
+      var from = await here.geocode(a);
+      var to = await here.geocode(b);
+      var test = here.dropMarker(from.Latitude, from.Longitude);
+      var test1 = here.dropMarker(to.Latitude, to.Longitude);
+      here.drawRoute(from, to, function() {
+      });
+
+  }
+
+  const query = new URLSearchParams(window.location.search)
+  directions(query.get('from'), query.get('to'));
+
+
+</script>
+
+
+
+
+</html>

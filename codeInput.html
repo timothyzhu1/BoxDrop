@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+
+<html>
+<title>Box Drop Delivering</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<style>
+  body,h1 {font-family: "Raleway", sans-serif}
+  body,h1 {
+    color: black;
+    text-align: center;
+  }
+  body, html {
+    height: 100%;
+    margin: 0;
+    overflow: hidden
+  }
+  .bgimg {
+    background-color:white;
+    min-height: 100%;
+    background-position: center;
+    background-size: cover;
+
+  }
+  #test2{
+
+    color: black;
+  }
+
+  #test{
+    position: absolute;
+    right: 0px;
+    color: black;
+    padding-right: 16px;
+    padding-top: 5px;
+  }
+
+
+  .display-top-right{
+    position:absolute;
+    right:0;
+    top:0
+  }
+
+
+
+  .sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+
+  }
+
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+
+  }
+
+  .sidenav a:hover {
+    color: #f1f1f1;
+
+  }
+
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+
+  }
+
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
+
+  .square{
+    animation-name: slide;
+    animation-duration: 4s;
+    animation-delay: 0s;
+    animation-iteration-count: one;
+    animation-timing-function: linear;
+    animation-direction: alternate;
+    height: 3px;
+    width: 75%;
+    background-color: #555;
+  }
+  @keyframes slide {
+  0% {
+    height: 3px;
+    width: 50%;
+    background-color: #555;
+  }
+
+  100%  {
+    height: 3px;
+    width: 75%;
+    background-color: #555;
+  }
+  }
+
+  form{
+    padding-top: 20%;
+    padding-right: 20%;
+    padding-left: 20%
+  }
+
+img{
+  position: absolute;
+  top:50%;
+  left:0px;
+  max-width: 100%;
+  height: auto;
+  z-index = 90909090;
+}
+</style>
+
+  <body>
+    <div class="square"></div>
+
+    <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+      <div id=test2 class="w3-display-topleft w3-padding-large w3-xlarge">
+        Box Drop
+    </div>
+
+
+
+
+
+    <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="addpage.html">Request</a>
+      <a href="recScreen.html">Receive</a>
+      <a href="awaitingReq.html">Drive</a>
+      <a href="about.html">About</a>
+    </div>
+
+    <span id = test style="font-size:30px;cursor:pointer;text-align:right;" onclick="openNav()">&#9776;</span>
+
+    <script>
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+    }
+
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+    }
+    </script>
+    <form>
+    <div class="input-group mb-3">
+    <input id="code" type="text" class="form-control" placeholder="Enter Confirmation Code" aria-label="Your Phone Number" aria-describedby="basic-addon2">
+    <div class="input-group-append">
+      <a href = 'recAuthD.html'><button id="confirm" class="btn btn-dark" type="button">Submit</button>  </a>
+    </div>
+  </div>
+  <small id="passwordHelpBlock" class="form-text text-muted">
+</small>
+  </form>
+
+<img src='https://www.pngarts.com/files/2/Black-Abstract-Lines-Transparent.png'></img>
+
+<script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.21.7.js"></script>
+<script>
+//pubnub send to awaitingRep.html
+const pubnub = new PubNub({
+    publishKey : 'pub-c-27519ead-c80f-4518-8fe0-e7c9ef7b6176',
+    subscribeKey : 'sub-c-ce8b5cf8-a60a-11e9-9950-eaa8f74ddcbd'
+});
+const button = document.getElementById('confirm');
+console.log(button)
+button.addEventListener('click', () => {
+  const code = document.getElementById('code').value;
+  console.log('code', code);
+    pubnub.publish({
+        channel : 'driver>final',
+        message: {
+            code: code,
+
+        }
+    }, function(status, response) {
+        console.log("helloooo in callback");
+        console.log(status, response);
+        window.location.replace('dipscreen.html');
+
+    });
+    console.log('after pubnub')
+
+
+});
+
+</script>
+
+  </body>
+</html>
